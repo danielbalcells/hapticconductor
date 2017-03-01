@@ -42,28 +42,11 @@ if(mouseY > (3*height)/4){
 
 
 
+float averageXVel = averageVector(velBuffer).x;
+float averageYVel = averageVector(velBuffer).y;
 
-float xSum=0;
-float ySum=0;
-
-float xVelSum=0;
-float yVelSum=0;
-
-for(int i = 0; i < velBuffer.size();i++){
-  xSum+= velBuffer.get(i).x;
-  ySum+= velBuffer.get(i).y;
-  
-  xVelSum+= accBuffer.get(i).x;
-  yVelSum+= accBuffer.get(i).y;
-}
-
-float averageXVel = xSum/velBuffer.size();
-float averageYVel = ySum/velBuffer.size();
-
-float averageXAcc = xVelSum/accBuffer.size();
-float averageYAcc = yVelSum/accBuffer.size();
-
-//text(Float.toString(instantVar(xyBuffer)),50,50);
+float averageXAcc = averageVector(accBuffer).x;
+float averageYAcc = averageVector(accBuffer).y;
 
 
 if(Math.pow(averageXAcc,2) + Math.pow(averageYAcc,2) > 5 && 
@@ -112,4 +95,16 @@ PVector instantVar(ArrayList<PVector> buffer){
   float changeinY = currentFrame.y - previousFrame.y;
   
   return new PVector(changeinX,changeinY);
+}
+
+
+PVector averageVector(ArrayList<PVector> buffer){
+float xSum=0;
+float ySum=0;
+
+for(int i = 0; i < buffer.size();i++){
+  xSum+= buffer.get(i).x;
+  ySum+= buffer.get(i).y;
+}
+return new PVector(xSum/buffer.size(),ySum/buffer.size());
 }
