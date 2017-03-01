@@ -1,8 +1,35 @@
+ArrayList<PVector> xyBuffer;
+
 void setup(){
+
+
+ArrayList<PVector> xyBuffer = new ArrayList<PVector>();
+for(int i = 0; i<10;i++){
+  xyBuffer.add(new PVector(4,1));
+}
+print(xyBuffer.get(0));
 size(600,600);
 }
 
 void draw(){
+  println(xyBuffer);
+  //xyBuffer.get(0);
+  xyBuffer.add(new PVector(mouseX,mouseY));
+  println(xyBuffer);
+
+  fill(color(0,0,0));
+  if(mouseX<width/4){
+  fill(color(0,250,250));
+}
+if(mouseX>(3*width)/4 ){
+  fill(color(150,150,250));
+}
+if(mouseY > (3*height)/4){
+  
+  color mappedColour = lerpColor(color(65,0,65),color(255,0,255),((float(mouseY)-(3*float(height))/4)/(float(height)/4)));
+  fill(mappedColour);
+}
+
 background(255);
 
 
@@ -20,15 +47,7 @@ for(int i = 0;i<3;i++){
   
 }
 
-if(mouseX<width/4){
-  fill(color(0,250,250));
-}
-if(mouseX<(3*width)/4 && ){
-  fill(color(150,150,250));
-}
-else {
-  fill(color(0,0,0));
-}
+
 
 ellipse(mouseX,mouseY,50,50);
 
