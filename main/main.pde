@@ -21,8 +21,12 @@ void setup(){
 }
 
 void draw(){
+  // Get XY position from whatever device
+  PVector xyPos;
+  xyPos = getXYPosition(0);
+  
   // Use current position to update velocity and acceleration buffers
-  updateBuffers(mouseX, mouseY);
+  updateBuffers(xyPos.x, xyPos.y);
   
   // Average buffers to smooth out values
   PVector avgVelVec = getVectorAverage(velBuffer);
