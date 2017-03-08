@@ -44,6 +44,7 @@ void draw(){
   //   -Acceleration magnitude is big enough
   //   -Velocity magnitude is increasing
   if(avgAccMag > ACC_MAG_THRESH && currentVelMag > previousVelMag){
-    // Do something 
+    // Do something with this info
+    // For example: draw a circle in the point where direction changed
   }
 }
