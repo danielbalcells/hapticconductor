@@ -8,13 +8,21 @@ class VibrationMotor {
   color defaultColor = color(255);
   color slowColor = color(0,0,250);
   color fastColor = color(250,0,0);
+  int id = 0;
+  int vibrateCount = 0;
+  int vibrateFrameThreshold = 40;
 
-  VibrationMotor(int x, int y, int dia) {
+  VibrationMotor(int x, int y, int dia, int id) {
     position = new PVector(x,y);
     diameter = dia;
+    this.id = id;
   }
 
   void update() {
+  }
+  
+  int getID(){
+  return id;
   }
 
   void display() {
@@ -25,7 +33,10 @@ class VibrationMotor {
       
       fill(intensityColor);
       ellipse(xPos,yPos,diameter+(vibrationStrength*10),diameter+(vibrationStrength*10));
-
+      vibrateCount +=1;
+      if (vibrateCount > vibrateFrameThreshold){
+        vibrationOff();
+      }
     } else {
       fill(defaultColor);
       ellipse(position.x,position.y,diameter,diameter);
@@ -53,6 +64,7 @@ class VibrationMotor {
   }
   
   void vibrationOn(){
+    vibrateCount = 0;
     vibrating = true;
   }
   

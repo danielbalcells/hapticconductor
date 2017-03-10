@@ -1,3 +1,7 @@
+import netP5.*;
+import oscP5.*;
+import controlP5.*;
+
 /*  
   Global variables
     -Buffers for:
@@ -11,15 +15,27 @@ ArrayList<PVector> xyBuffer;
 ArrayList<PVector> velBuffer;
 ArrayList<PVector> accBuffer;
 ArrayList<Float> angleBuffer;
-int BUFFER_SIZE = 20;
+ArrayList<VibrationMotor> motors;
+int BUFFER_SIZE = 10;
 int DEBUG_FLAG = 0;
 float ACC_MAG_THRESH = 5;
 double angle = 0;
+ArrayList<PVector> blipPositions;
+
+OscP5 oscP5;
+NetAddress supercollider;
 
 void setup(){
   // Fill buffers with zeros
   initBuffers();
+  initMotors("circle",8);
   size(600,600);
+  
+  oscP5 = new OscP5(this, 12000);
+  supercollider = new NetAddress("127.0.0.1", 57120);
+  
+  blipPositions = new ArrayList<PVector>();
+  
 }
 
 void draw(){
@@ -57,12 +73,29 @@ void draw(){
   if(avgAccMag > ACC_MAG_THRESH && currentVelMag > previousVelMag){
     // Do something with this info
     // For example: draw a circle in the point where direction changed
+    blipPositions.add(new PVector(mouseX,mouseY));
+    float index = map((float)averageAngle,-PI/2,PI/2,0.0,7.0);
+    println(index);
+    motors.get(int(index)).vibrationOn();
+    OscMessage myMessage = new OscMessage("/HapticBlip");
+    myMessage.add(index);
+      oscP5.send(myMessage, supercollider);
+  }
+  
+  for (VibrationMotor v: motors) {
+    v.update();
+    v.display();
+  }
+  
+  for (PVector p : blipPositions){
+    ellipse(p.x,p.y,10,10);
   }
   
   text((float)(angle),50,50);
-  println((angle));
   fill(255);
   translate(width/2,height/2);
   rotate((float)(averageAngle));
   line(0,0,width/2,0);
+  
+  
 }
