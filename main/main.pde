@@ -13,6 +13,7 @@ ArrayList<PVector> accBuffer;
 int BUFFER_SIZE = 20;
 int DEBUG_FLAG = 0;
 float ACC_MAG_THRESH = 5;
+double angle = 0;
 
 void setup(){
   // Fill buffers with zeros
@@ -21,6 +22,7 @@ void setup(){
 }
 
 void draw(){
+  background(100);
   // Get XY position from whatever device
   PVector xyPos;
   xyPos = getXYPosition(0);
@@ -40,6 +42,11 @@ void draw(){
   double currentVelMag = getMag(velBuffer.get(BUFFER_SIZE-1));
   double previousVelMag = getMag(velBuffer.get(BUFFER_SIZE-2));
   
+  //Get current an previous positions
+  PVector currentPosition = xyBuffer.get(BUFFER_SIZE-1);
+  PVector previousPosition = xyBuffer.get(BUFFER_SIZE-2);
+  angle = vectorAngle(velBuffer.get(BUFFER_SIZE-1));
+  
   // Detect change in direction if:
   //   -Acceleration magnitude is big enough
   //   -Velocity magnitude is increasing
@@ -47,4 +54,11 @@ void draw(){
     // Do something with this info
     // For example: draw a circle in the point where direction changed
   }
+  
+  text((float)(angle),50,50);
+  println((angle));
+  fill(255);
+  translate(width/2,height/2);
+  rotate((float)(angle));
+  line(0,0,width/2,0);
 }
