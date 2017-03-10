@@ -18,7 +18,11 @@ Synth(\hapticMetronome);
 Synth(\hapticMetronome,[\freq,200]);
 
 (
-var freqs = [100,200,400,800,1600,3200,4500,6000]
+var freqs;
+
+freqs = Array.fill(8, {arg i;
+	(62+i).midicps;
+});
 
 OSCdef('/HapticBlip', {arg msg,time,addr,recvPort;
 	Synth(\hapticMetronome,[\freq,freqs[msg[1]]]);
