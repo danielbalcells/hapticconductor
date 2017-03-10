@@ -6,6 +6,8 @@
       -2nd order derivatives (acceleration)
     -Buffer size 
     -Debug flag
+    -Threshold applied on acceleration magnitude
+    -Kinect stuff    
 */
 ArrayList<PVector> xyBuffer;
 ArrayList<PVector> velBuffer;
@@ -16,9 +18,14 @@ int DEBUG_FLAG = 0;
 float ACC_MAG_THRESH = 5;
 double angle = 0;
 
+import SimpleOpenNI.*;
+SimpleOpenNI kinect;
+
 void setup(){
   // Fill buffers with zeros
   initBuffers();
+  // Initialize Kinect object
+  initKinect();
   size(600,600);
 }
 
@@ -26,7 +33,7 @@ void draw(){
   background(100);
   // Get XY position from whatever device
   PVector xyPos;
-  xyPos = getXYPosition(0);
+  xyPos = getXYPosition(1);
   
   // Use current position to update velocity and acceleration buffers
   updateBuffers(xyPos.x, xyPos.y);
@@ -59,8 +66,11 @@ void draw(){
     // For example: draw a circle in the point where direction changed
   }
   
+  fill(255, 0, 0);
+  ellipse(xyPos.x, xyPos.y, 10, 10);
+  
   text((float)(angle),50,50);
-  println((angle));
+  //println((angle));
   fill(255);
   translate(width/2,height/2);
   rotate((float)(averageAngle));

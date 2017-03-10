@@ -52,12 +52,22 @@ PVector getInstantVar(ArrayList<PVector> buffer){
   Get XY position using the specified method.
   Available methods:
     -0: mouseX and mouseY
+    -1: left hand XY position from Kinect using SimpleOpenNI
+    -2: right hand XY position from Kinect using SimpleOpenNI
 */
 PVector getXYPosition(int method){
   PVector xyPos = new PVector(0,0);
   
-  if (method == 0){
-    xyPos = new PVector(mouseX,mouseY);
+  switch (method){
+    case 0:
+      xyPos = new PVector(mouseX,mouseY);
+      break;
+    case 1:
+      xyPos = getHandXYPos(SimpleOpenNI.SKEL_LEFT_HAND, 0);
+      break;
+    case 2:
+      xyPos = getHandXYPos(SimpleOpenNI.SKEL_RIGHT_HAND, 0);
+      break;
   }
   
   return xyPos;
