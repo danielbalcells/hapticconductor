@@ -10,6 +10,7 @@
 ArrayList<PVector> xyBuffer;
 ArrayList<PVector> velBuffer;
 ArrayList<PVector> accBuffer;
+ArrayList<Float> angleBuffer;
 int BUFFER_SIZE = 20;
 int DEBUG_FLAG = 0;
 float ACC_MAG_THRESH = 5;
@@ -45,7 +46,10 @@ void draw(){
   //Get current an previous positions
   PVector currentPosition = xyBuffer.get(BUFFER_SIZE-1);
   PVector previousPosition = xyBuffer.get(BUFFER_SIZE-2);
-  angle = vectorAngle(velBuffer.get(BUFFER_SIZE-1));
+  
+  //current angle
+  float currentAngle = angleBuffer.get(BUFFER_SIZE-1);
+  float averageAngle = getBufferFloatAverage(angleBuffer);
   
   // Detect change in direction if:
   //   -Acceleration magnitude is big enough
@@ -59,6 +63,6 @@ void draw(){
   println((angle));
   fill(255);
   translate(width/2,height/2);
-  rotate((float)(angle));
+  rotate((float)(averageAngle));
   line(0,0,width/2,0);
 }
