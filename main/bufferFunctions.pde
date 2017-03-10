@@ -14,6 +14,11 @@ void initBuffers(){
     accBuffer.add(new PVector(0,0));
     angleBuffer.add(0.0);
   } 
+  
+  for(int i = 0; i<VEL_MAG_BUFFER_SIZE;i++){
+    //velMagBuffer.add(0.0);
+    //velMagDiffBuffer.add(0.0);
+  }
 }
 
 /*
@@ -26,8 +31,12 @@ void updateBuffers(float x,float y){
   xyBuffer.remove(0);
   xyBuffer.add(new PVector(x,y));
   
+  PVector currentVel = getInstantVar(xyBuffer);
   velBuffer.remove(0);
-  velBuffer.add(getInstantVar(xyBuffer));
+  velBuffer.add(currentVel);
+  
+  //velMagBuffer.remove(0);
+  //velMagBuffer.add(velBuffer.get(0).mag());
   
   accBuffer.remove(0);
   accBuffer.add(getInstantVar(velBuffer));

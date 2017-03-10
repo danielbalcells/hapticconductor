@@ -8,13 +8,14 @@ void initKinect(){
   kinect.enableDepth();
   // turn on user tracking
   kinect.enableUser();
+  // Turn on RGB image acquisition
+  kinect.enableRGB(IMG_WIDTH,IMG_HEIGHT, KINECT_FPS); 
 }
 
 /*
   Tracks a hand and returns its XY position
 */
-PVector getHandXYPos(int jointToTrack, int drawDepthImage){
-  kinect.update();
+PVector getJointXYPos(int jointToTrack, int drawDepthImage){
   PVector handPos = new PVector(0,0);
   
   if(drawDepthImage == 1){

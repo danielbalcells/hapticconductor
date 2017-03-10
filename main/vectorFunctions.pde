@@ -63,10 +63,10 @@ PVector getXYPosition(int method){
       xyPos = new PVector(mouseX,mouseY);
       break;
     case 1:
-      xyPos = getHandXYPos(SimpleOpenNI.SKEL_LEFT_HAND, 0);
+      xyPos = getJointXYPos(SimpleOpenNI.SKEL_LEFT_HAND, 0);
       break;
     case 2:
-      xyPos = getHandXYPos(SimpleOpenNI.SKEL_RIGHT_HAND, 0);
+      xyPos = getJointXYPos(SimpleOpenNI.SKEL_RIGHT_HAND, 0);
       break;
   }
   
