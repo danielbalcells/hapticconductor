@@ -82,7 +82,7 @@ void setup() {
 void draw() {
   frameRate(KINECT_FPS);
   kinect.update();
-  PImage rgb = kinect.depthImage();
+  PImage rgb = kinect.rgbImage();
   image(rgb, 0, 0);
 
   // Update buffers and other frame-wise global variables

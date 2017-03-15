@@ -10,7 +10,7 @@ class VibrationMotor {
   color fastColor = color(250,0,0);
   int id = 0;
   int vibrateCount = 0;
-  int vibrateFrameThreshold = 40;
+  int vibrateFrameThreshold = 20;
 
   VibrationMotor(int x, int y, int dia, int id) {
     position = new PVector(x,y);
@@ -33,6 +33,7 @@ class VibrationMotor {
       
       fill(intensityColor);
       ellipse(xPos,yPos,diameter+(vibrationStrength*10),diameter+(vibrationStrength*10));
+     
       vibrateCount +=1;
       if (vibrateCount > vibrateFrameThreshold){
         vibrationOff();
