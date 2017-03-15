@@ -27,10 +27,11 @@ OscP5 oscP5;
 NetAddress supercollider;
 
 void setup(){
+  size(600,600);
   // Fill buffers with zeros
   initBuffers();
   initMotors("circle",8);
-  size(600,600);
+
   
   oscP5 = new OscP5(this, 12000);
   supercollider = new NetAddress("127.0.0.1", 57120);
