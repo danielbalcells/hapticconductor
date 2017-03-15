@@ -15,34 +15,79 @@ void initBuffers(){
     angleBuffer.add(0.0);
   } 
   
-  for(int i = 0; i<VEL_MAG_BUFFER_SIZE;i++){
-    //velMagBuffer.add(0.0);
-    //velMagDiffBuffer.add(0.0);
-  }
+  
+  // Initialize blip buffers
+  blipPositions = new ArrayList<PVector>();
+  blipPositions.add(new PVector(0, 0));
+  blipPositions.add(new PVector(0, 0));
+
+  blipMags = new ArrayList<Float>();
+  blipMags.add(0.0);
+  blipMags.add(0.0);
+
+  printBuffer = new ArrayList<String>();
+  printBuffer.add("instantAcc, instantVel");
 }
 
 /*
-  Take current XY position and update 
-  position, velocity and acceleration buffers.
+  Update all global variables and buffers based on current XY position
   Calls function instantVar to compute first-order derivatives.
 */
 
-void updateBuffers(float x,float y){
-  xyBuffer.remove(0);
-  xyBuffer.add(new PVector(x,y));
+void updateVariables(){
   
-  PVector currentVel = getInstantVar(xyBuffer);
+  // Update skeleton
+  chest = getJointXYPos(SimpleOpenNI.SKEL_TORSO, 0);
+  lShoulder = getJointXYPos(SimpleOpenNI.SKEL_LEFT_SHOULDER, 0);
+  rShoulder = getJointXYPos(SimpleOpenNI.SKEL_RIGHT_SHOULDER, 0);
+  rHand = getJointXYPos(SimpleOpenNI.SKEL_RIGHT_HAND, 0);
+  lHand = getJointXYPos(SimpleOpenNI.SKEL_LEFT_HAND, 0);
+  shoulderScale = PVector.dist(lShoulder, rShoulder);
+  
+  
+  // Update movement buffers
+  xyBuffer.remove(0);
+  xyBuffer.add(lHand);
+  
+  // Current veloc & acc mags
+  currentVel = getInstantVar(xyBuffer);
+  instantAcc = (float)getMag(accBuffer.get(BUFFER_SIZE-1));
+  previousAcc = (float)getMag(accBuffer.get(BUFFER_SIZE-2));
+  
   velBuffer.remove(0);
   velBuffer.add(currentVel);
-  
-  //velMagBuffer.remove(0);
-  //velMagBuffer.add(velBuffer.get(0).mag());
   
   accBuffer.remove(0);
   accBuffer.add(getInstantVar(velBuffer));
   
   angleBuffer.remove(0);
   angleBuffer.add((float)vectorAngle(getInstantVar(xyBuffer)));
+  
+  // Average buffers to smooth out values
+  avgVelVec = getVectorAverage(velBuffer);
+  avgAccVec = getVectorAverage(accBuffer);
+
+  // Get magnitude of averaged vel and acc vectors
+  avgVelMag = getMag(avgVelVec);
+  avgAccMag = getMag(avgAccVec);
+
+  // Get magnitude of instantaneous vel vectors for t=now and t=now-1
+  currentVelMag = getMag(velBuffer.get(BUFFER_SIZE-1));
+  previousVelMag = getMag(velBuffer.get(BUFFER_SIZE-2));
+
+  // Get current an previous positions
+  currentPosition = xyBuffer.get(BUFFER_SIZE-1);
+  previousPosition = xyBuffer.get(BUFFER_SIZE-2);
+
+  // Current angle
+  currentAngle = angleBuffer.get(BUFFER_SIZE-1);
+  averageAngle = getBufferFloatAverage(angleBuffer);
+
+  
+  
+  // Change in direction
+  dirChangeAngle = PVector.angleBetween(velBuffer.get(BUFFER_SIZE-1), 
+                                        velBuffer.get(BUFFER_SIZE-2));
   
   if(DEBUG_FLAG == 1){
     println("xyBuffer:");
