@@ -5,7 +5,7 @@
  * Universitat Pompeu Fabra 
 */
 
-int maxData = 0;
+int maxData = 100;
 int out_1;
 int out_2;
 int out_3;
