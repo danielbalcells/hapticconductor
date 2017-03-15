@@ -35,10 +35,12 @@ void loop()
     time = millis();
 
     if(c == '0'){
-        analogWrite(13, 255);//white_blue
-    }
+        analogWrite(9, 255);//white_blue
+    } else if ( c =='2') {
+      analogWrite(9, 255);//white_blue
+      }
     else {
-        analogWrite(13, 0);//black_brown
+        analogWrite(9, 0);//black_brown
     }
   }    
 }

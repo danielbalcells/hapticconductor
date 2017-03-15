@@ -22,7 +22,12 @@ void draw(){
 }
 
 void mousePressed(){
-   myPort.write('0');
+  if(mouseButton==1) {
+    myPort.write('0');
+  } else {
+  myPort.write('2');
+  }
+   
 }
 
 void mouseReleased(){
