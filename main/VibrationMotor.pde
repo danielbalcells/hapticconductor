@@ -73,6 +73,10 @@ class VibrationMotor {
     vibrating = false;
   }
   
+  float strength(){
+    return vibrationStrength;
+  }
+  
   void setPos(PVector newPos){
     position = newPos;
   }

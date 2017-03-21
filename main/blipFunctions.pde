@@ -1,9 +1,9 @@
-int isBlip() {
+boolean isBlip() {
 
   if (instantAcc > ACC_MAG_THRESH) {
-    return 1;
+    return true;
   } else {
-    return 0;
+    return false;
   }
 
   // OLD STUFF

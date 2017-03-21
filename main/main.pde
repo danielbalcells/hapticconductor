@@ -89,7 +89,7 @@ void draw() {
   updateVariables();
 
   // If there is a blip, do whatever
-  if(isBlip()==1) {
+  if(isBlip()) {
     onBlip();
   }
   
