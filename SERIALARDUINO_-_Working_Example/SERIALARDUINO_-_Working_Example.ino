@@ -4,6 +4,7 @@
  * Advanced Interface Design
  * Universitat Pompeu Fabra 
 */
+#include <SoftwareSerial.h>
 
 int testTrigger = 0;
 int out_1;
@@ -15,16 +16,21 @@ int out_6; //white_blue
 int out_7;
 int out_8;
 unsigned long time;
-int pins[] = {2,5,8,10,3,6,9,11,13};
+int pins[] = {4,5,10,3,6,9,11,13};
+//int pins[] = {4};
+//working: 5,9, 10, 3, 6,11,13,4
+//not working: 2, 8
+int testpin;
 
+//SoftwareSerial mySerial(0, 1); // RX, TX
 
 void setup()
 {
-  Serial.begin(19200);
+  Serial.begin(9600);
   for(int i=0; i<9; i++)  pinMode(pins[i], OUTPUT);
+  testpin = pins[8];
   
 }
-
 
 void loop()
 {
@@ -35,12 +41,19 @@ void loop()
     time = millis();
 
     if(c == '0'){
-        analogWrite(9, 255);//white_blue
+      for(int i = 0;i<8;i++){
+        analogWrite(pins[i], 255);//white_blue
+        }
+        
     } else if ( c =='2') {
-      analogWrite(9, 255);//white_blue
+      for(int i = 0;i<8;i++){
+        analogWrite(pins[i], 255);//white_blue
+        }
       }
     else {
-        analogWrite(9, 0);//black_brown
+        for(int i = 0;i<8;i++){
+        analogWrite(pins[i], 0);//white_blue
+        }
     }
   }    
 }

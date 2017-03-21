@@ -8,7 +8,7 @@ void setup() {
   printArray(Serial.list());
 
   // Open the port you are using at the rate you want:
-  myPort = new Serial(this, Serial.list()[9], 9600);
+  myPort = new Serial(this, Serial.list()[7], 9600);
 
   // Send a capital "A" out the serial port
   frameRate(5);
@@ -23,13 +23,13 @@ void draw(){
 
 void mousePressed(){
   if(mouseButton==1) {
-    myPort.write("55555555");
+    myPort.write('0');
   } else {
-  myPort.write("55555555");
+  myPort.write('2');
   }
    
 }
 
 void mouseReleased(){
-   //myPort.write('1');
+   myPort.write('1');
 }
