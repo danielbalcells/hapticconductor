@@ -47,7 +47,7 @@ void updateVariables(){
   
   // Update movement buffers
   xyBuffer.remove(0);
-  xyBuffer.add(lHand);
+  xyBuffer.add(rHand);
   
   // Current veloc & acc mags
   currentVel = getInstantVar(xyBuffer);

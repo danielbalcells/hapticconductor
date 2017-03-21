@@ -27,7 +27,7 @@ void onBlip() {
 
 
   // Turn on motor according to hand-to-chest angle
-  float angle = getBlipToChestAngle(lHand, chest);
+  float angle = getBlipToChestAngle(rHand, chest);
   float wrappedAngle = (angle + 5*PI/2) % (2*PI);
   float index = map(wrappedAngle, 0, 2*PI, 0.0, 8.0);
   int selectedMotor = int(index-0.5);
