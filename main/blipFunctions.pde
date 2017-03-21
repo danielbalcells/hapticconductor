@@ -28,8 +28,10 @@ void onBlip() {
 
   // Turn on motor according to hand-to-chest angle
   float angle = getBlipToChestAngle(lHand, chest);
-  float index = map(angle, PI, -PI, 0.0, 7.0);
+  float wrappedAngle = (angle + 5*PI/2) % (2*PI);
+  float index = map(wrappedAngle, 0, 2*PI, 0.0, 8.0);
   int selectedMotor = int(index-0.5);
+  println(selectedMotor);
  
   for(int i=0; i<8 && i != selectedMotor; i++){
     motors.get(i).vibrationOff();
