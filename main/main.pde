@@ -96,6 +96,14 @@ void draw() {
     onBlip();
   }
   
+  /*motors.get(1).visibleOff();
+  motors.get(2).visibleOff();
+  motors.get(3).visibleOff();
+  motors.get(4).visibleOff();
+  motors.get(5).visibleOff();
+  motors.get(6).visibleOff();
+  motors.get(7).visibleOff();
+  */
   // Update on-screen visualizations of feedback and blip detection
   updateVisuals();
   

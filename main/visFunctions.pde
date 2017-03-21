@@ -3,7 +3,9 @@ void updateVisuals() {
   updateMotors(chest.x, chest.y, shoulderScale);
   for (VibrationMotor v : motors) {
     v.update();
-    v.display();
+    if (v.isVisible()){
+      v.display();
+    }
   }
 
   for (PVector p : blipPositions) {

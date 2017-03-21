@@ -4,7 +4,8 @@ class VibrationMotor {
   float vibrationStrength = 1.0;
   float vibrationSpeed = 2.0;
   float yPhase = 1.274;
-  boolean vibrating = false;
+  boolean vibrating = false;  
+  boolean visible = true;
   color defaultColor = color(255);
   color slowColor = color(0,0,250);
   color fastColor = color(250,0,0);
@@ -48,6 +49,10 @@ class VibrationMotor {
     return vibrating;
   }
   
+  boolean isVisible() {
+    return visible;
+  }
+  
   void setStrength(float strength){
     vibrationStrength = strength;
   }
@@ -64,6 +69,14 @@ class VibrationMotor {
     }
   }
   
+  void toggleVisible() {
+    if (visible) {
+      visible = false;
+    } else {
+      visible = true;
+    }
+  }
+  
   void vibrationOn(){
     vibrateCount = 0;
     vibrating = true;
@@ -71,6 +84,14 @@ class VibrationMotor {
   
   void vibrationOff(){
     vibrating = false;
+  }
+  
+  void visibleOff(){
+    visible = false;
+  }
+  
+  void visibleOn(){
+    visible = true;
   }
   
   float strength(){
