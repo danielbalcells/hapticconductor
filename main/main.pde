@@ -71,6 +71,9 @@ void setup() {
   
   // Initialize Kinect object
   initKinect();
+  
+  // Initialize serial connection
+  initSerial();
 
   // Start OSC stuff
   oscP5 = new OscP5(this, 12000);

@@ -1,7 +1,7 @@
   import processing.serial.*;
   Serial myPort;
   
-  void serialInit(){
+  void initSerial(){
   // List all the available serial ports:
   printArray(Serial.list());
 

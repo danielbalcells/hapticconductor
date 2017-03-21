@@ -39,6 +39,8 @@ void onBlip() {
   myMessage.add(index);
   oscP5.send(myMessage, supercollider);
   
+  //Send a blip via serial
+  sendBlip();
   
 }
 
