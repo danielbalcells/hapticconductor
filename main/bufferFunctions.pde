@@ -44,6 +44,11 @@ void updateVariables(){
   lHand = getJointXYPos(SimpleOpenNI.SKEL_LEFT_HAND, 0);
   shoulderScale = PVector.dist(lShoulder, rShoulder);
   
+  if(rHand.x != 0 && rHand.y != 0){
+    TRACKING_SOMETHING=true;
+  }else{
+    TRACKING_SOMETHING=false;
+  } 
   
   // Update movement buffers
   xyBuffer.remove(0);

@@ -1,6 +1,7 @@
 boolean isBlip() {
-
-  if (instantAcc > ACC_MAG_THRESH) {
+float instantVel = (float)getMag(velBuffer.get(velBuffer.size()-1));
+  //OLD LOGIC if (instantAcc > ACC_MAG_THRESH) {
+    if(instantVel < 1.5){
     return true;
   } else {
     return false;
@@ -20,7 +21,7 @@ boolean isBlip() {
 
 void onBlip() {
   blipPositions.remove(0);
-  blipPositions.add(new PVector(mouseX, mouseY));
+  blipPositions.add(new PVector(rHand.x, rHand.y));
 
   blipMags.remove(0);
   blipMags.add((float)avgAccMag);
@@ -31,7 +32,7 @@ void onBlip() {
   float wrappedAngle = (angle + 5*PI/2) % (2*PI);
   float index = map(wrappedAngle, 0, 2*PI, 0.0, 8.0);
   int selectedMotor = int(index-0.5);
-  println(selectedMotor);
+  //println(selectedMotor);
  
   for(int i=0; i<8 && i != selectedMotor; i++){
     motors.get(i).vibrationOff();
@@ -43,6 +44,8 @@ void onBlip() {
   
   //Send a blip via serial
   sendBlip();
+  BLIP_COUNTER++;
+  println("NEW BLIP: " + BLIP_COUNTER);
   
 }
 

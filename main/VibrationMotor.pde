@@ -11,7 +11,7 @@ class VibrationMotor {
   color fastColor = color(250,0,0);
   int id = 0;
   int vibrateCount = 0;
-  int vibrateFrameThreshold = 20;
+  int vibrateFrameThreshold = 10;
 
   VibrationMotor(int x, int y, int dia, int id) {
     position = new PVector(x,y);

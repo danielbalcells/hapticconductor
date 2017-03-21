@@ -54,6 +54,12 @@ int IMG_WIDTH = 600;
 int IMG_HEIGHT = 480;
 int KINECT_FPS = 100;
 int VEL_MAG_BUFFER_SIZE = 5;
+int MAX_BLIP_VIS_SIZE = 40;
+boolean TRACKING_SOMETHING = false;
+
+int BLIP_COUNTER = 0;
+int FRAMES_SINCE_LAST_BLIP = 9999;
+float MIN_BLIP_FRAMECOUNT = (float)KINECT_FPS/10.0;
 
 SimpleOpenNI kinect;
 
@@ -65,21 +71,19 @@ void setup() {
 
   // Fill buffers with zeros
   initBuffers();
-  
+
   // Initialize motors
   initMotors("circle", 8);
-  
+
   // Initialize Kinect object
   initKinect();
-  
+
   // Initialize serial connection
   initSerial();
 
   // Start OSC stuff
   oscP5 = new OscP5(this, 12000);
   supercollider = new NetAddress("127.0.0.1", 57120);
-
-  
 }
 
 void draw() {
@@ -90,23 +94,21 @@ void draw() {
 
   // Update buffers and other frame-wise global variables
   updateVariables();
+  FRAMES_SINCE_LAST_BLIP++;
 
-  // If there is a blip, do whatever
-  if(isBlip()) {
-    onBlip();
-  }
-  
-  /*motors.get(1).visibleOff();
-  motors.get(2).visibleOff();
-  motors.get(3).visibleOff();
-  motors.get(4).visibleOff();
-  motors.get(5).visibleOff();
-  motors.get(6).visibleOff();
-  motors.get(7).visibleOff();
-  */
+
+  if (TRACKING_SOMETHING) {
+    // If there is a blip, do whatever
+    if (FRAMES_SINCE_LAST_BLIP > MIN_BLIP_FRAMECOUNT) {
+      if (isBlip()) {
+        FRAMES_SINCE_LAST_BLIP=0;
+        onBlip();
+      }
+    }
+  } 
   // Update on-screen visualizations of feedback and blip detection
   updateVisuals();
-  
+
   // Debug saves to a file
   String printString = instantAcc+", "+currentVelMag;
   printBuffer.add(printString);
