@@ -1,7 +1,8 @@
 boolean isBlip() {
-float instantVel = (float)getMag(velBuffer.get(velBuffer.size()-1));
+  //float instantVel = (float)getMag(velBuffer.get(velBuffer.size()-1));
   //OLD LOGIC if (instantAcc > ACC_MAG_THRESH) {
-    if(instantVel < 1.5){
+  //if(instantVel < 1.5){
+  if(currentAcc > ACC_MAG_THRESH && currentAcc > previousAcc && currentAcc > nextAcc){
     return true;
   } else {
     return false;
@@ -45,7 +46,7 @@ void onBlip() {
   //Send a blip via serial
   sendBlip();
   BLIP_COUNTER++;
-  println("NEW BLIP: " + BLIP_COUNTER);
+  //println("NEW BLIP: " + BLIP_COUNTER);
   
 }
 

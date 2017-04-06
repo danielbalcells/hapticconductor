@@ -32,7 +32,7 @@ void updateVisuals() {
       fill(255);
       strokeWeight(1);
       if (isBlip()) {
-        size = 25;
+        size = 75;
         fill(color(250, 0, 0));
       }
       if (instantAcc2 <1) {
@@ -45,6 +45,8 @@ void updateVisuals() {
       if (size > MAX_BLIP_VIS_SIZE) {
         size = MAX_BLIP_VIS_SIZE;
       }
+      fill(255);
+      size =25;
       ellipse(xyBuffer.get(i).x, xyBuffer.get(i).y, size, size);
     }
   }
